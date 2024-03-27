@@ -1,1 +1,0 @@
-//En header som ska finnas på alla sidor med logga (som fungerar som hem-knapp) och rubriken Auctioneer
