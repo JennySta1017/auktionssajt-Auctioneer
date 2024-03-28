@@ -24,6 +24,7 @@ function App() {
 
       const data = await response.json();
       setAuctions(data);
+      console.log(data);
     };
 
     fetchAuctions();

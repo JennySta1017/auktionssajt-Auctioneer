@@ -1,6 +1,15 @@
 import { v4 as uuidv4 } from "uuid";
+import Details from "../Details/Details";
+import { useState } from "react";
 
 const Home = ({ auctions }) => {
+
+  const [auctionDetails, setAuctionDetails] = useState(null); // Uppdaterar vald auktion
+  
+  const handleAuctionDetails = (auction) => { // Hanterar clickfunktionen för att sätta auktionsdetaljerna
+    setAuctionDetails(auction);
+  };
+
   return (
     <div className="container">
       <div className="row justify-content-center">
@@ -22,7 +31,7 @@ const Home = ({ auctions }) => {
           auctions.map((auction) => (
             <div className="card" style={{ width: "18rem" }} key={uuidv4()}>
               <ul className="list-group list-group-flush">
-                <li className="list-group-item">
+                <li className="list-group-item" onClick={() => handleAuctionDetails(auction)}>
                   {auction.AuctionID} : {auction.Title}
                 </li>
                 <li className="list-group-item">{auction.EndDate}</li>
@@ -32,6 +41,7 @@ const Home = ({ auctions }) => {
             </div>
           ))}
       </div>
+      {auctionDetails && <Details auction={auctionDetails} />} {/* Hämtar nytt värde till auctionDetails och skickar till Details */}
     </div>
   );
 };
