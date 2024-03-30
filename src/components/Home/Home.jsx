@@ -11,7 +11,7 @@ const Home = ({
   handleSearchSubmit,
 }) => {
   const [timeRemaining, setTimeRemaining] = useState("");
-
+  
   useEffect(() => {
     const interval = setInterval(() => {
       // Iterate over auctions and calculate time remaining for each
@@ -61,6 +61,7 @@ const Home = ({
           </div>
         </div>
       </div>
+
       <div className="d-flex justify-content-center align-items-center flex-wrap mb-10">
         {timeRemaining &&
           timeRemaining.map((auction) => (
@@ -80,6 +81,7 @@ const Home = ({
                     Startpris {auction.StartingPrice} SEK
                   </li>
                 )}
+                
               </ul>
               <div className="card-footer">
                 <li className="list-group-item time">
