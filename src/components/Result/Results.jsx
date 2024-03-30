@@ -1,21 +1,13 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import "./Home.css";
 
-const Home = ({
-  auctions,
-  oldBids,
-  inputValue,
-  handleDetails,
-  handleSearchInputChange,
-  handleSearchSubmit,
-}) => {
+const Results = ({ searchResults, handleDetails, oldBids }) => {
   const [timeRemaining, setTimeRemaining] = useState("");
 
   useEffect(() => {
     const interval = setInterval(() => {
       // Iterate over auctions and calculate time remaining for each
-      const updatedAuctions = auctions.map((auction) => {
+      const updatedAuctions = searchResults.map((auction) => {
         const currentTime = new Date().getTime();
         const dueTime = new Date(auction.EndDate).getTime();
         const difference = dueTime - currentTime;
@@ -36,31 +28,10 @@ const Home = ({
 
     // Clear the interval when the component unmounts
     return () => clearInterval(interval);
-  }, [auctions]);
+  }, [searchResults]);
 
   return (
     <div className="container">
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          <div className="input-group my-3">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Ange ett sökord eller objektnamn"
-              value={inputValue}
-              onChange={handleSearchInputChange}
-            />
-            <button
-              className="btn btn-primary"
-              type="button"
-              id="button-addon"
-              onClick={handleSearchSubmit}
-            >
-              Sök
-            </button>
-          </div>
-        </div>
-      </div>
       <div className="d-flex justify-content-center align-items-center flex-wrap mb-10">
         {timeRemaining &&
           timeRemaining.map((auction) => (
@@ -94,4 +65,4 @@ const Home = ({
   );
 };
 
-export default Home;
+export default Results;

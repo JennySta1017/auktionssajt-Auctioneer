@@ -1,0 +1,21 @@
+.container {
+  margin-bottom: 86px;
+}
+.card {
+  width: 230px;
+  margin: 12px;
+}
+.title {
+  font-size: 20px;
+  cursor: pointer;
+}
+.original-price {
+  font-size: 16px;
+}
+.starting-price {
+  font-size: 18px;
+}
+.highest-bid {
+  font-size: 18px;
+  color: green;
+}

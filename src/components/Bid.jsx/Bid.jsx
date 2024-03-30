@@ -1,4 +1,4 @@
-const Details = () => {
+const Bid = () => {
   return (
     <div>
       
@@ -6,4 +6,4 @@ const Details = () => {
   )
 }
 
-export default Details
+export default Bid
