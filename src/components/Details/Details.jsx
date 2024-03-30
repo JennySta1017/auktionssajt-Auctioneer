@@ -1,11 +1,7 @@
-
 import Home from "../Home/Home";
 import { NavLink } from "react-router-dom";
 
-
 const Details = ({auction}) => {
-  
-
      return (
     <div id="details-container">
     <div className="auction-details">
@@ -24,6 +20,5 @@ const Details = ({auction}) => {
       
   );
 };
-  
 
-export default Details;
+export default Details

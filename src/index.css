@@ -6,15 +6,9 @@
   position: fixed;
   bottom: 0;
   width: 100%;
-  list-style: none;
   z-index: 999;
-  background-color: #d2691e;
-  font-size: 20px;
-  display: block;
 }
 .footer a {
   cursor: pointer;
-  width: 40px;
-  height: 50px;
   color: #000;
 }
