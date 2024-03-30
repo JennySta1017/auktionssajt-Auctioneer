@@ -1,9 +1,11 @@
 
 import Home from "../Home/Home";
+import { NavLink } from "react-router-dom";
+
 
 const Details = ({auction}) => {
- /*  
-  } */
+  
+
      return (
     <div className="auction-details">
       <h2>{auction.Title}</h2>
@@ -11,6 +13,9 @@ const Details = ({auction}) => {
       <p>End Date: {auction.EndDate}</p>
       <p>Starting Price: {auction.StartingPrice} kr</p>
       <p>Description: {auction.Description}</p>
+      <NavLink to="/result" className="nav-link">
+        Place a bid
+      </NavLink>
     </div>
   );
 };
