@@ -1,6 +1,8 @@
 import { v4 as uuidv4 } from "uuid";
 import Details from "../Details/Details";
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
+
 
 const Home = ({ auctions }) => {
 
@@ -8,6 +10,7 @@ const Home = ({ auctions }) => {
   
   const handleAuctionDetails = (auction) => { // Hanterar clickfunktionen för att sätta auktionsdetaljerna
     setAuctionDetails(auction);
+    
   };
 
   return (
@@ -30,12 +33,23 @@ const Home = ({ auctions }) => {
         {auctions &&
           auctions.map((auction) => (
             <div className="card" style={{ width: "18rem" }} key={uuidv4()}>
-              <ul className="list-group list-group-flush">
-                <li className="list-group-item" onClick={() => handleAuctionDetails(auction)}>
+              <ul className="list-group list-group-flush"> 
+              <li className="list-group-item" >
                   {auction.AuctionID} : {auction.Title}
                 </li>
                 <li className="list-group-item">{auction.EndDate}</li>
                 <li className="list-group-item">{auction.StartingPrice} kr</li>
+                <li className="list-group-item">
+                <NavLink
+                    to={{
+                      pathname: "/details",
+                      state: { auction: auction },
+                    }}
+                    className="nav-link"
+                  >
+                  See details
+                  </NavLink>
+                  </li>
               </ul>
               <div className="card-footer"></div>
             </div>
