@@ -1,7 +1,17 @@
 import Home from "../Home/Home";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
-const Details = ({auction}) => {
+
+const Details = () => {
+  const location = useLocation();
+  const auction = location.state?.auction;
+
+   // Kontrollerar om auction är definierat innan egenskaperna skrivs ut
+   if (!auction) {
+    return <div>Detaljer för auktionen är inte tillgängliga.</div>;
+    
+  }
+
      return (
     <div id="details-container">
     <div className="auction-details">
