@@ -52,7 +52,7 @@ const App = () => {
       }
       const data = await response.json();
       setDetails(data);
-      navigate("/details", { replace: true, state: {} });
+      navigate("/details", { state: { auction: data } }); 
     } catch (err) {
       console.log(err);
     }
