@@ -1,0 +1,41 @@
+/* placeBidPage.css */
+
+/* Container för hela sidan */
+.place-bid-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 2px solid #ccc; /* Lägg till en ram runt innehållet */
+    border-radius: 8px; /* Runda hörnen på rutan */
+  }
+  
+  /* Formulärets label */
+  .place-bid-label {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    display: block;
+  }
+  
+  /* Textinmatningsfält för budvärde */
+  .place-bid-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 1em;
+  }
+  
+  /* Knapp för att skicka in bud */
+  .place-bid-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    font-size: 1em;
+    cursor: pointer;
+  }
+  
+  /* Knapp för att skicka in bud när musen är över den */
+  .place-bid-button:hover {
+    background-color: #0056b3;
+  }
+  
