@@ -1,0 +1,14 @@
+.contact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 100px;
+}
+.contact-text {
+  padding: 3px 1px;
+}
+.customer-service {
+  width: 200px;
+  height: 220px;
+}
