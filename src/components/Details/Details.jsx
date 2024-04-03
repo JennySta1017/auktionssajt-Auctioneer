@@ -36,25 +36,28 @@ const Details = ({oldBids}) => {
       <p>Starting Price: {auction.StartingPrice} kr</p>
       <p>Description: {auction.Description}</p>
     </div>
-    {oldBids.length > 0 && (
-    <div className="auction-details">
+    
+    {!isAuctionOver && oldBids.length > 0 && (
+      <div className="auction-details">
       <h2>Bids placed</h2>
     <ul>
   {oldBids.map((bid, idx) => (
     <li key={idx}>{bid.Amount}</li>
     
   ))}
-
-</ul>
+  </ul>
     </div>
-    )}
+
+  )}
 
     <div className="auction-details">
     {!isAuctionOver && (
+  
       <NavLink to="/bid" className="nav-link">
       Place a bid
-      </NavLink>
+      </NavLink>  
     )}
+    
     {!oldBids && (
   <button onClick={handleDelete} className="delete-button">
     Radera
