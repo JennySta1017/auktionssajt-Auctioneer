@@ -9,9 +9,10 @@ const Home = ({
   handleDetails,
   handleSearchInputChange,
   handleSearchSubmit,
+  handleAddAuction,
 }) => {
   const [timeRemaining, setTimeRemaining] = useState("");
-  
+
   useEffect(() => {
     const interval = setInterval(() => {
       // Iterate over auctions and calculate time remaining for each
@@ -39,7 +40,15 @@ const Home = ({
   }, [auctions]);
 
   return (
-    <div className="container">
+    <div className="container mt-4">
+      <button
+        className="mb-2 btn btn-outline-success"
+        type="submit"
+        onClick={handleAddAuction}
+      >
+        Lägga till auktion <ion-icon name="chevron-forward-outline"></ion-icon>
+      </button>
+
       <div className="row justify-content-center">
         <div className="col-md-6">
           <div className="input-group my-3">
@@ -81,7 +90,6 @@ const Home = ({
                     Startpris {auction.StartingPrice} SEK
                   </li>
                 )}
-                
               </ul>
               <div className="card-footer">
                 <li className="list-group-item time">

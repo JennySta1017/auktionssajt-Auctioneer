@@ -93,6 +93,11 @@ const App = () => {
     navigate("/results", { replace: true, state: { inputValue } });
   };
 
+   // Add an auction
+   const handleAddAuction = () => {
+    navigate("/newAuction");
+  };
+
   return (
     <>
       <Navbar />
@@ -108,6 +113,7 @@ const App = () => {
               handleDetails={handleDetails}
               handleSearchInputChange={handleSearchInputChange}
               handleSearchSubmit={handleSearchSubmit}
+              handleAddAuction={handleAddAuction}
             />
           }
         />
