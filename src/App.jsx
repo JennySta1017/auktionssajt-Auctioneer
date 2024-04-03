@@ -123,7 +123,8 @@ const App = () => {
           }
         />
 
-        <Route path="/details" element={<Details />} />
+        <Route path="/details" 
+        element={<Details oldBids={oldBids} />} />
 
         <Route path="/bid" element={<Bid />} />
 
