@@ -5,11 +5,11 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Details from "./components/Details/Details";
 import Bid from "./components/Bid.jsx/Bid";
-import Selling from "./components/Selling/Selling";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Results from "./components/Result/Results";
 import NewAuction from "./components/NewAuction/NewAuction";
+import Contact from "./components/Contact/Contact";
 
 const App = () => {
   // Fetch auctions
@@ -52,7 +52,7 @@ const App = () => {
       }
       const data = await response.json();
       setDetails(data);
-      navigate("/details", { state: { auction: data } }); 
+      navigate("/details", { state: { auction: data } });
     } catch (err) {
       console.log(err);
     }
@@ -127,9 +127,9 @@ const App = () => {
 
         <Route path="/bid" element={<Bid />} />
 
-        <Route path="/selling" element={<Selling />} />
-
         <Route path="/newAuction" element={<NewAuction />} />
+
+        <Route path="/contact" element={<Contact />} />
       </Routes>
       <Footer />
     </>
