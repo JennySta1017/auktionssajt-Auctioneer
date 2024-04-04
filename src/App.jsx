@@ -17,7 +17,7 @@ const App = () => {
   const [oldBids, setOldBids] = useState([]);
   // Search auctions
   const [inputValue, setInputValue] = useState("");
-  const [details, setDetails] = useState([]);
+  const [details, setDetails] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
 
   const navigate = useNavigate();
@@ -79,6 +79,24 @@ const App = () => {
     }
   }, [details]);
 
+  // Delete auction
+  const deleteAuction = async (id) => {
+    try {
+      const response = await fetch(
+        `https://auctioneer.azurewebsites.net/auction/4onm/${id}`,{
+        method: 'DELETE'
+      });
+      
+      if (response.ok) {
+      console.log('Auktionen har tagits bort.');
+    } else {
+      console.error('Det uppstod ett problem vid borttagning av auktionen.');
+    }
+  } catch (error) {
+    console.error('Ett fel uppstod:', error);
+  }
+};
+
   // Handle search input change
   const handleSearchInputChange = (event) => {
     setInputValue(event.target.value);
@@ -130,7 +148,12 @@ const App = () => {
         />
 
         <Route path="/details" 
-        element={<Details oldBids={oldBids} />} />
+        element={<Details 
+        oldBids={oldBids} 
+        details={details}
+        deleteAuction={deleteAuction}
+        />
+        } />
 
         <Route path="/bid" element={<Bid />} />
 
