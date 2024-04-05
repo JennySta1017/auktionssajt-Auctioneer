@@ -29,7 +29,7 @@ const App = () => {
   useEffect(() => {
     const fetchAuctions = async () => {
       const response = await fetch(
-        "https://auctioneer.azurewebsites.net/auction/4onm"
+        "https://auctioneer2.azurewebsites.net/auction/4onm"
       );
 
       if (!response.ok) {
@@ -51,7 +51,7 @@ const App = () => {
         data = createdAuctions.find((auction) => auction.AuctionID === id);
       } else {
         const response = await fetch(
-          `https://auctioneer.azurewebsites.net/auction/4onm/${id}`
+          `https://auctioneer2.azurewebsites.net/auction/4onm/${id}`
         );
 
         if (!response.ok) {
@@ -71,7 +71,7 @@ const App = () => {
   useEffect(() => {
     const fetchOldBids = async (auctionId) => {
       const response = await fetch(
-        `https://auctioneer.azurewebsites.net/bid/4onm/${auctionId}`
+        `https://auctioneer2.azurewebsites.net/bid/4onm/${auctionId}`
       );
 
       if (!response.ok) {
@@ -92,7 +92,7 @@ const App = () => {
   const deleteAuction = async (auctionId) => {
     try {
       const response = await fetch(
-        `https://auctioneer.azurewebsites.net/auction/4onm/${auctionId}`,
+        `https://auctioneer2.azurewebsites.net/auction/4onm/${auctionId}`,
         {
           method: "DELETE",
         }
@@ -128,36 +128,31 @@ const App = () => {
   };
   // Funktion för att skapa nya bud
   const createBid = async (auctionId, bidAmount, bidder) => {
-   try {
-     const apiUrl = `https://auctioneer.azurewebsites.net/bid/4onm/`; 
-     const response = await fetch(apiUrl, {
-       method: 'POST',
-       headers: {
-         'Content-Type': 'application/json',
-       },
-       body: JSON.stringify({
-         AuctionID: auctionId,
-         Amount: bidAmount,
-         BidID: 'example-bid-id',
-         Bidder: bidder,
-         GroupCode: '4onm',
-         
-       }),
-     });
- 
-     if (!response.ok) {
-       throw new Error('Något gick fel när budet skapades');
-     }
- 
-     console.log('Budet skapades framgångsrikt');
-     
- 
-   } catch (error) {
-     console.error('Fel uppstod vid skapande av bud:', error);
-    
-   }
- };
- 
+    try {
+      const apiUrl = `https://auctioneer2.azurewebsites.net/bid/4onm/`;
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          AuctionID: auctionId,
+          Amount: bidAmount,
+          BidID: "example-bid-id",
+          Bidder: bidder,
+          GroupCode: "4onm",
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Något gick fel när budet skapades");
+      }
+
+      console.log("Budet skapades framgångsrikt");
+    } catch (error) {
+      console.error("Fel uppstod vid skapande av bud:", error);
+    }
+  };
 
   return (
     <>
