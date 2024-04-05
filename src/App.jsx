@@ -15,10 +15,13 @@ const App = () => {
   // Fetch auctions
   const [auctions, setAuctions] = useState([]);
   const [oldBids, setOldBids] = useState([]);
+  const [newBid, setNewBid] = useState([]);
   // Search auctions
   const [inputValue, setInputValue] = useState("");
   const [details, setDetails] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
+  // Store auctions created on the Selling page
+  const [createdAuctions, setCreatedAuctions] = useState([]);
 
   const navigate = useNavigate();
 
@@ -41,18 +44,24 @@ const App = () => {
   }, []);
 
   // Fetch details
-  const handleDetails = async (id) => {
+  const handleDetails = async (id, isNewAuction = false) => {
     try {
-      const response = await fetch(
-        `https://auctioneer.azurewebsites.net/auction/4onm/${id}`
-      );
+      let data;
+      if (isNewAuction) {
+        data = createdAuctions.find((auction) => auction.AuctionID === id);
+      } else {
+        const response = await fetch(
+          `https://auctioneer.azurewebsites.net/auction/4onm/${id}`
+        );
 
-      if (!response.ok) {
-        throw new Error("Unable to fetch data");
+        if (!response.ok) {
+          throw new Error("Unable to fetch data");
+        }
+        data = await response.json();
       }
-      const data = await response.json();
+
       setDetails(data);
-      navigate("/details", { state: { auction: data } });
+      navigate("/details", { replace: true, state: {} });
     } catch (err) {
       console.log(err);
     }
@@ -79,6 +88,27 @@ const App = () => {
     }
   }, [details]);
 
+
+  // Delete auction
+  const deleteAuction = async (id) => {
+    try {
+      const response = await fetch(
+        `https://auctioneer.azurewebsites.net/auction/4onm/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (response.ok) {
+        console.log("Auktionen har tagits bort.");
+      } else {
+        console.error("Det uppstod ett problem vid borttagning av auktionen.");
+      }
+    } catch (error) {
+      console.error("Ett fel uppstod:", error);
+    }
+  };
+
   // Handle search input change
   const handleSearchInputChange = (event) => {
     setInputValue(event.target.value);
@@ -93,8 +123,8 @@ const App = () => {
     navigate("/results", { replace: true, state: { inputValue } });
   };
 
-   // Add an auction
-   const handleAddAuction = () => {
+  // Add an auction
+  const handleAddAuction = () => {
     navigate("/newAuction");
   };
 
@@ -109,11 +139,13 @@ const App = () => {
             <Home
               auctions={auctions}
               oldBids={oldBids}
+              newBid={newBid}
               inputValue={inputValue}
               handleDetails={handleDetails}
               handleSearchInputChange={handleSearchInputChange}
               handleSearchSubmit={handleSearchSubmit}
               handleAddAuction={handleAddAuction}
+              createdAuctions={createdAuctions}
             />
           }
         />
@@ -131,6 +163,18 @@ const App = () => {
 
         <Route path="/details" 
         element={<Details oldBids={oldBids} />} />
+
+        <Route
+          path="/details"
+          element={
+            <Details
+              oldBids={oldBids}
+              details={details}
+              deleteAuction={deleteAuction}
+            />
+          }
+        />
+
 
         <Route path="/bid" element={<Bid />} />
 
