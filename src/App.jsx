@@ -126,6 +126,38 @@ const App = () => {
   const handleAddAuction = () => {
     navigate("/newAuction");
   };
+  // Funktion för att skapa nya bud
+  const createBid = async (auctionId, bidAmount, bidder) => {
+   try {
+     const apiUrl = `https://auctioneer.azurewebsites.net/bid/4onm/`; 
+     const response = await fetch(apiUrl, {
+       method: 'POST',
+       headers: {
+         'Content-Type': 'application/json',
+       },
+       body: JSON.stringify({
+         AuctionID: auctionId,
+         Amount: bidAmount,
+         BidID: 'example-bid-id',
+         Bidder: bidder,
+         GroupCode: '4onm',
+         
+       }),
+     });
+ 
+     if (!response.ok) {
+       throw new Error('Något gick fel när budet skapades');
+     }
+ 
+     console.log('Budet skapades framgångsrikt');
+     
+ 
+   } catch (error) {
+     console.error('Fel uppstod vid skapande av bud:', error);
+    
+   }
+ };
+ 
 
   return (
     <>
@@ -170,8 +202,7 @@ const App = () => {
             />
           }
         />
-
-        <Route path="/bid" element={<Bid />} />
+        <Route path="/bid" element={<Bid createBid={createBid} />} />
 
         <Route path="/newAuction" element={<NewAuction />} />
 
