@@ -48,10 +48,8 @@ const App = () => {
     try {
       let data;
       if (isNewAuction) {
-        // If it's a newly created auction, directly navigate to the details page without fetching data
         data = createdAuctions.find((auction) => auction.AuctionID === id);
       } else {
-        // Fetch auction details from the server
         const response = await fetch(
           `https://auctioneer.azurewebsites.net/auction/4onm/${id}`
         );
