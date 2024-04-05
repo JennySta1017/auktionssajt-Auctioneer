@@ -1,3 +1,16 @@
+#details-container{
+  margin: 0px auto;
+  max-width: 600px;
+}
 .auction-details {
   margin: 20px 20px;
+}
+
+.nav-link{
+  margin-bottom: 5px;
+
+}
+
+.bid-list {
+  list-style-type: none;
 }

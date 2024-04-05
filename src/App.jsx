@@ -18,7 +18,7 @@ const App = () => {
   const [newBid, setNewBid] = useState([]);
   // Search auctions
   const [inputValue, setInputValue] = useState("");
-  const [details, setDetails] = useState(null);
+  const [details, setDetails] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   // Store auctions created on the Selling page
   const [createdAuctions, setCreatedAuctions] = useState([]);
@@ -87,6 +87,7 @@ const App = () => {
       fetchOldBids(details.AuctionID);
     }
   }, [details]);
+
 
   // Delete auction
   const deleteAuction = async (id) => {
@@ -160,6 +161,9 @@ const App = () => {
           }
         />
 
+        <Route path="/details" 
+        element={<Details oldBids={oldBids} />} />
+
         <Route
           path="/details"
           element={
@@ -170,6 +174,7 @@ const App = () => {
             />
           }
         />
+
 
         <Route path="/bid" element={<Bid />} />
 
