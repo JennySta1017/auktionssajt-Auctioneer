@@ -1,5 +1,6 @@
 
 import { NavLink} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import "./Details.css";
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from "react-bootstrap/Button";
@@ -16,7 +17,7 @@ const Details = ({
 
   const { Title, AuctionID, EndDate, StartingPrice, Description } = details;
   console.log(details);
-   
+  const navigate = useNavigate(); 
   const currentDate = new Date();
 
   // Kontrollera om auktionen har passerat sitt slutdatum
@@ -28,6 +29,7 @@ const Details = ({
     try {
       await deleteAuction(details.AuctionID);
       console.log("Auktionen har tagits bort.");
+      navigate("/"); // Navigera tillbaka till Home
     } catch (error) {
       console.error("Ett fel uppstod vid försök att ta bort auktionen:", error);
     }
@@ -57,8 +59,8 @@ const Details = ({
       <ul className="bid-list">
       <ListGroup.Item><li><h2>Bids placed</h2></li></ListGroup.Item>
     
-  {oldBids.map((bid, idx) => (
-    <ListGroup.Item><li key={idx}>{bid.Amount}</li></ListGroup.Item> 
+  {oldBids.map((bid) => (
+    <ListGroup.Item><li key={bid.BidID}>{bid.Amount}</li></ListGroup.Item> 
   ))}
     </ul>
       </div></ListGroup>
