@@ -89,10 +89,10 @@ const App = () => {
   }, [details]);
 
   // Delete auction
-  const deleteAuction = async (id) => {
+  const deleteAuction = async (auctionId) => {
     try {
       const response = await fetch(
-        `https://auctioneer.azurewebsites.net/auction/4onm/${id}`,
+        `https://auctioneer.azurewebsites.net/auction/4onm/${auctionId}`,
         {
           method: "DELETE",
         }
