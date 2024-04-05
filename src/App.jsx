@@ -88,7 +88,6 @@ const App = () => {
     }
   }, [details]);
 
-
   // Delete auction
   const deleteAuction = async (id) => {
     try {
@@ -161,9 +160,6 @@ const App = () => {
           }
         />
 
-        <Route path="/details" 
-        element={<Details oldBids={oldBids} />} />
-
         <Route
           path="/details"
           element={
@@ -174,7 +170,6 @@ const App = () => {
             />
           }
         />
-
 
         <Route path="/bid" element={<Bid />} />
 
