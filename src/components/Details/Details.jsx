@@ -40,7 +40,7 @@ const Details = ({
      return (
       <>
       <NavLink to="/" className="nav-link">
-        {' <<'} Tillbaka
+      <Button variant="outline-success">{' <<'} Tillbaka</Button>
       </NavLink>
       <div id="details-container">
     <div className="auction-details">
