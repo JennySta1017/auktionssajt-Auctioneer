@@ -51,7 +51,7 @@ const Bid = ({ createBid }) => {
               required 
             />
           </div>
-          <button type="submit">Lägg bud</button>
+          <button type="submit" className="bid-button">Lägg bud</button>
         </form>
       </div>
     </div>
