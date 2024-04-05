@@ -1,41 +1,49 @@
-/* placeBidPage.css */
+.bid-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Ändrad från 'center' till 'flex-start' */
 
-/* Container för hela sidan */
-.place-bid-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 2px solid #ccc; /* Lägg till en ram runt innehållet */
-    border-radius: 8px; /* Runda hörnen på rutan */
-  }
-  
-  /* Formulärets label */
-  .place-bid-label {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-    display: block;
-  }
-  
-  /* Textinmatningsfält för budvärde */
-  .place-bid-input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    font-size: 1em;
-  }
-  
-  /* Knapp för att skicka in bud */
-  .place-bid-button {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    font-size: 1em;
-    cursor: pointer;
-  }
-  
-  /* Knapp för att skicka in bud när musen är över den */
-  .place-bid-button:hover {
-    background-color: #0056b3;
-  }
-  
+}
+
+.bid-box {
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.bid-box h2 {
+  margin-bottom: 20px;
+}
+
+.input-container {
+  margin-bottom: 10px;
+}
+
+.input-container label {
+  display: block;
+  font-weight: bold;
+}
+
+.input-container input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}

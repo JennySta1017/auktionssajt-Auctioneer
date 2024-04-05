@@ -1,29 +1,61 @@
-import React from 'react';
-import "./Bid.css"; 
+import React, { useState } from 'react';
+import './Bid.css';
 
+const Bid = ({ createBid }) => {
+  const [auctionId, setAuctionId] = useState('');
+  const [bidAmount, setBidAmount] = useState('');
+  const [bidder, setBidder] = useState('');
 
-const Bid = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Skicka data för att skapa nytt bud
+    createBid(auctionId, bidAmount, bidder);
+    // Återställ formuläret
+    setAuctionId('');
+    setBidAmount('');
+    setBidder('');
+  };
+
   return (
-    <div className="place-bid-container">
-      <h2>Lägg ny bud</h2>
-      <form>
-        <label htmlFor="bidValue" className="place-bid-label">
-          Bud summa:
-        </label>
-        <input
-          type="number"
-          id="bidValue"
-          className="place-bid-input"
-          placeholder="Ange budbelopp"
-          required
-        />
-        <button type="submit" className="place-bid-button">
-          Lägg bud
-        </button>
-      </form>
+    <div className="bid-container">
+      <div className="bid-box">
+        <h2>Lägg nytt bud</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="input-container">
+            <label htmlFor="auctionId">Auction ID:</label>
+            <input 
+              type="text" 
+              id="auctionId" 
+              value={auctionId} 
+              onChange={(e) => setAuctionId(e.target.value)} 
+              required 
+            />
+          </div>
+          <div className="input-container">
+            <label htmlFor="bidAmount">Budsumma:</label>
+            <input 
+              type="number" 
+              id="bidAmount" 
+              value={bidAmount} 
+              onChange={(e) => setBidAmount(e.target.value)} 
+              required 
+            />
+          </div>
+          <div className="input-container">
+            <label htmlFor="bidder">Budgivare:</label>
+            <input 
+              type="text" 
+              id="bidder" 
+              value={bidder} 
+              onChange={(e) => setBidder(e.target.value)} 
+              required 
+            />
+          </div>
+          <button type="submit">Lägg bud</button>
+        </form>
+      </div>
     </div>
   );
 };
 
 export default Bid;
-
