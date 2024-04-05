@@ -14,3 +14,7 @@
 .bid-list {
   list-style-type: none;
 }
+
+#erase-btn{
+  margin: 5px;
+}
