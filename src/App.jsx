@@ -149,6 +149,7 @@ const App = () => {
       }
 
       console.log("Budet skapades framgångsrikt");
+      navigate(-1);
     } catch (error) {
       console.error("Fel uppstod vid skapande av bud:", error);
     }

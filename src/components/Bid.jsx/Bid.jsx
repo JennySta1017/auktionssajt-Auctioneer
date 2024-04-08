@@ -1,4 +1,6 @@
+
 import React, { useState } from 'react';
+import Button from "react-bootstrap/Button";
 import './Bid.css';
 
 const Bid = ({ createBid }) => {
@@ -18,8 +20,9 @@ const Bid = ({ createBid }) => {
 
   return (
     <div className="bid-container">
+      
       <div className="bid-box">
-        <h2>Lägg nytt bud</h2>
+        <h2>Lägg till nytt bud</h2>
         <form onSubmit={handleSubmit}>
           <div className="input-container">
             <label htmlFor="auctionId">Auction ID:</label>
@@ -57,5 +60,4 @@ const Bid = ({ createBid }) => {
     </div>
   );
 };
-
 export default Bid;
