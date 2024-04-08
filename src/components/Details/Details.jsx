@@ -36,6 +36,10 @@ const Details = ({
   };
    
   console.log(oldBids);
+  
+  const highestBid = oldBids.reduce((maxBid, bid) => {
+    return bid.Amount > maxBid ? bid.Amount : maxBid;
+  }, 0);
 
      return (
       <>
@@ -69,8 +73,8 @@ const Details = ({
   {isAuctionOver && oldBids.length > 0 &&( // Om auktionen är avslutad och bud-arrayen är längre än 0 - visa sista budet
     <ListGroup>
     <div className="auction-details">
-    <ListGroup.Item><h2>Slutligt bud</h2></ListGroup.Item>  
-    <ListGroup.Item><p>{oldBids[oldBids.length - 1].Amount}</p></ListGroup.Item>
+    <ListGroup.Item><h2>Högsta bud</h2></ListGroup.Item>  
+    <ListGroup.Item><p>{highestBid}</p></ListGroup.Item>
     </div></ListGroup>
   )}
     <div className="auction-details">
