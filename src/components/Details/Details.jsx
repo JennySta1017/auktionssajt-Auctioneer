@@ -9,6 +9,7 @@ import Button from "react-bootstrap/Button";
 const Details = ({
   oldBids,
   details,
+  newBid,
   deleteAuction
 }) => {
   if (!details) {
@@ -66,15 +67,18 @@ const Details = ({
   {oldBids.map((bid) => (
     <li key={bid.BidID}>{bid.Amount} kr</li> 
   ))}
+  {newBid.map((bid) => (
+    <li key={bid.BidID}>{bid.Amount} kr</li>
+  ))}
     </ul>
       </div></ListGroup>
   )}
 
-  {isAuctionOver && oldBids.length > 0 &&( // Om auktionen är avslutad och bud-arrayen är längre än 0 - visa sista budet
+  {isAuctionOver && oldBids.length > 0 &&( // Om auktionen är avslutad och bud-arrayen är längre än 0 - visa det högsta budet
     <ListGroup>
     <div className="auction-details">
     <ListGroup.Item><h2>Högsta bud</h2></ListGroup.Item>  
-    <ListGroup.Item><p>{highestBid}</p></ListGroup.Item>
+    <ListGroup.Item><p>{highestBid} kr</p></ListGroup.Item>
     </div></ListGroup>
   )}
     <div className="auction-details">

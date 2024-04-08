@@ -194,6 +194,7 @@ const App = () => {
             <Details
               oldBids={oldBids}
               details={details}
+              newBid={newBid}
               deleteAuction={deleteAuction}
             />
           }
