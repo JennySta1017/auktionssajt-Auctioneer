@@ -9,6 +9,10 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+.container {
+  margin-bottom: 20vh;
+}
+
 .create-auction-input {
   width: 100%;
   padding: 12px;

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./NewAuction.css";
+import { useNavigate } from "react-router-dom";
 
 // TODO: Lägg in props här ifall createdAuctions & setCreatedAuctions kommer från en ParentComponent som är beroende av uppdaterat state
 const NewAuction = () => { // ({ createdAuctions, setCreatedAuctions }) => {
@@ -9,6 +10,7 @@ const NewAuction = () => { // ({ createdAuctions, setCreatedAuctions }) => {
   const [newStartingPrice, setNewStartingPrice] = useState(null);
   const [seller, setSeller] = useState("");
   const groupCode = '4onm';
+  const navigate = useNavigate();
 
   const createNewAuction = async () => {
     const newAuction = {
@@ -37,7 +39,7 @@ const NewAuction = () => { // ({ createdAuctions, setCreatedAuctions }) => {
     }
 
     // TODO: Är detta props?
-    setCreatedAuctions([...createdAuctions, newAuction]);
+    // setCreatedAuctions([...createdAuctions, newAuction]);
 
     setNewTitle("");
     setNewDescription("");
