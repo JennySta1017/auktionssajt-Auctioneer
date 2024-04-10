@@ -242,6 +242,7 @@ const App = () => {
               details={details}
               newBid={newBid}
               deleteAuction={deleteAuction}
+              setAuctions={setAuctions}  
             />
           }
         />
