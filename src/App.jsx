@@ -22,6 +22,13 @@ const App = () => {
   const [searchResults, setSearchResults] = useState([]);
   // Store auctions created on the Selling page
   const [createdAuctions, setCreatedAuctions] = useState([]);
+  // Creat new auctions
+  const [newTitle, setNewTitle] = useState("");
+  const [newDescription, setNewDescription] = useState("");
+  const [newEndDate, setNewEndDate] = useState("");
+  const [newStartingPrice, setNewStartingPrice] = useState(null);
+  const [seller, setSeller] = useState("");
+  const groupCode = "4onm";
 
   const navigate = useNavigate();
 
@@ -126,6 +133,45 @@ const App = () => {
   const handleAddAuction = () => {
     navigate("/newAuction");
   };
+
+  // Submit a new auction
+  const createNewAuction = async () => {
+    const newAuction = {
+      GroupCode: groupCode,
+      Title: newTitle,
+      Description: newDescription,
+      StartDate: new Date().toISOString(),
+      EndDate: newEndDate,
+      StartingPrice: newStartingPrice,
+      CreatedBy: seller,
+    };
+
+    const apiUrl = "https://auctioneer2.azurewebsites.net/auction/" + groupCode;
+
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newAuction),
+    });
+
+    if (!response.ok) {
+      alert("Det gick inte bra att skapa auktion, försök igen!");
+      return;
+    }
+
+    // setCreatedAuctions([...createdAuctions, newAuction]);
+    setCreatedAuctions([...createdAuctions, newAuction]);
+
+    setNewTitle("");
+    setNewDescription("");
+    setNewEndDate("");
+    setNewStartingPrice("");
+    setSeller("");
+    navigate("/");
+  };
+
   // Funktion för att skapa nya bud
   const createBid = async (auctionId, bidAmount, bidder) => {
     try {
@@ -201,7 +247,24 @@ const App = () => {
         />
         <Route path="/bid" element={<Bid createBid={createBid} />} />
 
-        <Route path="/newAuction" element={<NewAuction />} />
+        <Route
+          path="/newAuction"
+          element={
+            <NewAuction
+              newTitle={newTitle}
+              setNewTitle={setNewTitle}
+              newDescription={newDescription}
+              setNewDescription={setNewDescription}
+              newEndDate={newEndDate}
+              setNewEndDate={setNewEndDate}
+              newStartingPrice={newStartingPrice}
+              setNewStartingPrice={setNewStartingPrice}
+              seller={seller}
+              setSeller={setSeller}
+              createNewAuction={createNewAuction}
+            />
+          }
+        />
 
         <Route path="/contact" element={<Contact />} />
       </Routes>

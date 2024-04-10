@@ -1,54 +1,18 @@
-import { useState } from "react";
 import "./NewAuction.css";
-import { useNavigate } from "react-router-dom";
 
-// TODO: Lägg in props här ifall createdAuctions & setCreatedAuctions kommer från en ParentComponent som är beroende av uppdaterat state
-const NewAuction = () => { // ({ createdAuctions, setCreatedAuctions }) => {
-  const [newTitle, setNewTitle] = useState("");
-  const [newDescription, setNewDescription] = useState("");
-  const [newEndDate, setNewEndDate] = useState("");
-  const [newStartingPrice, setNewStartingPrice] = useState(null);
-  const [seller, setSeller] = useState("");
-  const groupCode = '4onm';
-  const navigate = useNavigate();
-
-  const createNewAuction = async () => {
-    const newAuction = {
-      GroupCode: groupCode,
-      Title: newTitle,
-      Description: newDescription,
-      StartDate: new Date().toISOString(),
-      EndDate: newEndDate,
-      StartingPrice: newStartingPrice,
-      CreatedBy: seller,
-    };
-
-    const apiUrl = "https://auctioneer2.azurewebsites.net/auction/" + groupCode;
-
-    const response = await fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newAuction),
-    });
-
-    if (!response.ok) {
-      alert("Det gick inte bra att skapa auktion, försök igen!");
-      return;
-    }
-
-    // TODO: Är detta props?
-    // setCreatedAuctions([...createdAuctions, newAuction]);
-
-    setNewTitle("");
-    setNewDescription("");
-    setNewEndDate("");
-    setNewStartingPrice("");
-    setSeller("");
-    navigate("/");
-  };
-
+const NewAuction = ({
+  newTitle,
+  newDescription,
+  setNewTitle,
+  setNewDescription,
+  newEndDate,
+  setNewEndDate,
+  newStartingPrice,
+  setNewStartingPrice,
+  seller,
+  setSeller,
+  createNewAuction,
+}) => {
   return (
     <div className="container">
       <h1>Skapa ny auktion</h1>
@@ -87,9 +51,11 @@ const NewAuction = () => { // ({ createdAuctions, setCreatedAuctions }) => {
         value={seller}
         onChange={(e) => setSeller(e.target.value)}
       />
-      <button className="create-auction-btn" onClick={createNewAuction}>Skapa auktion</button>
+      <button className="create-auction-btn" onClick={createNewAuction}>
+        Skapa auktion
+      </button>
     </div>
-  )
-}
+  );
+};
 
-export default NewAuction
+export default NewAuction;
