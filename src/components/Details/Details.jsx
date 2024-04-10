@@ -10,7 +10,8 @@ const Details = ({
   oldBids,
   details,
   newBid,
-  deleteAuction
+  deleteAuction,
+  setAuctions
 }) => {
   if (!details) {
     return <div>Detaljer för auktionen är inte tillgängliga.</div>;
@@ -31,6 +32,9 @@ const Details = ({
       await deleteAuction(details.AuctionID);
       console.log("Auktionen har tagits bort.");
       navigate("/"); // Navigera tillbaka till Home
+      // Uppdatera listan över auktioner
+      setAuctions(prevAuctions => prevAuctions.filter(auction => auction.AuctionID !== details.AuctionID));
+
     } catch (error) {
       console.error("Ett fel uppstod vid försök att ta bort auktionen:", error);
     }
