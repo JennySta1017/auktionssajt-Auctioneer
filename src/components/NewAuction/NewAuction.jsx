@@ -52,6 +52,8 @@ const NewAuction = () => { // ({ createdAuctions, setCreatedAuctions }) => {
   return (
     <div className="container">
       <h1>Skapa ny auktion</h1>
+      <hr />
+      <label>Titel på auktion</label>
       <input
         className="create-auction-input"
         type="text"
@@ -59,6 +61,7 @@ const NewAuction = () => { // ({ createdAuctions, setCreatedAuctions }) => {
         value={newTitle}
         onChange={(e) => setNewTitle(e.target.value)}
       />
+      <label>Beskrivning av auktion</label>
       <input
         className="create-auction-input"
         type="text"
@@ -66,6 +69,7 @@ const NewAuction = () => { // ({ createdAuctions, setCreatedAuctions }) => {
         value={newDescription}
         onChange={(e) => setNewDescription(e.target.value)}
       />
+      <label>Slutdatum på auktionen</label>
       <input
         className="create-auction-input"
         type="datetime-local"
@@ -73,6 +77,7 @@ const NewAuction = () => { // ({ createdAuctions, setCreatedAuctions }) => {
         value={newEndDate}
         onChange={(e) => setNewEndDate(e.target.value)}
       />
+      <label>Startpris/startbud</label>
       <input
         className="create-auction-input"
         type="number"
@@ -80,6 +85,7 @@ const NewAuction = () => { // ({ createdAuctions, setCreatedAuctions }) => {
         value={newStartingPrice}
         onChange={(e) => setNewStartingPrice(parseFloat(e.target.value))}
       />
+      <label>Säljare (namn)</label>
       <input
         className="create-auction-input"
         type="text"
