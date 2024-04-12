@@ -88,7 +88,7 @@ const Details = ({
     <div className="auction-details">
   {!isAuctionOver && ( // om auktionen är öppen - visa "place a bid"
       
-      <NavLink to="/bid">
+      <NavLink to="/bid" state={{ auctionId: details.AuctionID }}>
   <Button id="bid-btn" variant="primary">Lägg ett bud</Button>
 </NavLink>
          
