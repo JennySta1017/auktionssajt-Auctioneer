@@ -1,39 +1,26 @@
-
 import React, { useState } from 'react';
 import Button from "react-bootstrap/Button";
+import { useLocation } from 'react-router-dom';
 import './Bid.css';
 
 const Bid = ({ createBid }) => {
-  const [auctionId, setAuctionId] = useState('');
+  const location = useLocation();
+  const auctionId = location.state.auctionId; // Access Auction ID passed from Details page
   const [bidAmount, setBidAmount] = useState('');
   const [bidder, setBidder] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Skicka data för att skapa nytt bud
-    createBid(auctionId, bidAmount, bidder);
-    // Återställ formuläret
-    setAuctionId('');
+    createBid(auctionId, bidAmount, bidder); // Use auctionId from state
     setBidAmount('');
     setBidder('');
   };
 
   return (
     <div className="bid-container">
-      
       <div className="bid-box">
-        <h2>Lägg till nytt bud</h2>
+        <h2>Lägg nytt bud</h2>
         <form onSubmit={handleSubmit}>
-          <div className="input-container">
-            <label htmlFor="auctionId">Auction ID:</label>
-            <input 
-              type="text" 
-              id="auctionId" 
-              value={auctionId} 
-              onChange={(e) => setAuctionId(e.target.value)} 
-              required 
-            />
-          </div>
           <div className="input-container">
             <label htmlFor="bidAmount">Budsumma:</label>
             <input 
