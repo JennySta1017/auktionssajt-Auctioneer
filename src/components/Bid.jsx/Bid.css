@@ -48,13 +48,19 @@
 button:hover {
   background-color: #0056b3;
 }
-.input-group {
+.bid-amount-input {
   position: relative;
 }
 
-.currency {
+.bid-amount-input input {
+  padding-right: 20px; /* Lägg till lite extra utrymme till höger för valutasymbolen */
+}
+
+.bid-amount-input::after {
+  content: "kr";
   position: absolute;
-  right: 10px; /* Adjust as needed */
   top: 50%;
+  right: 10px; /* Justera avståndet från höger sida */
   transform: translateY(-50%);
+  color: #000; /* Färg på valutasymbolen */
 }

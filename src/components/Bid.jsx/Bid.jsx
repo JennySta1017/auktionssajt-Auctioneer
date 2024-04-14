@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Button from "react-bootstrap/Button";
 import { useLocation, useNavigate } from 'react-router-dom';
 import './Bid.css';
 
@@ -33,10 +32,10 @@ const Bid = ({ createBid }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    // Check if the bid amount is less than the highest bid amount
-    if (parseFloat(bidAmount) < parseFloat(highestBid)) {
+    // Check if the bid amount is less than or equal to the highest bid amount
+    if (parseFloat(bidAmount) <= parseFloat(highestBid)) {
       alert("Du måste lägga ett bud som är högre än det högsta budet.");
-      return; // Exit the function if the bid amount is less than the highest bid amount
+      return; // Exit the function if the bid amount is less than or equal to the highest bid amount
     }
   
     await createBid(auctionId, bidAmount, bidder);
@@ -53,13 +52,15 @@ const Bid = ({ createBid }) => {
         <form onSubmit={handleSubmit}>
           <div className="input-container">
             <label htmlFor="bidAmount">Budsumma:</label>
-            <input 
-              type="number" 
-              id="bidAmount" 
-              value={bidAmount} 
-              onChange={(e) => setBidAmount(e.target.value)} 
-              required 
-            />
+            <div className="bid-amount-input">
+              <input 
+                type="number" 
+                id="bidAmount" 
+                value={bidAmount} 
+                onChange={(e) => setBidAmount(e.target.value)} 
+                required 
+              />
+            </div>
           </div>
           <div className="input-container">
             <label htmlFor="bidder">Budgivare:</label>
