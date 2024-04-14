@@ -175,31 +175,35 @@ const App = () => {
   // Funktion för att skapa nya bud
   const createBid = async (auctionId, bidAmount, bidder) => {
     try {
-      const apiUrl = `https://auctioneer2.azurewebsites.net/bid/4onm/`;
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          AuctionID: auctionId,
-          Amount: bidAmount,
-          BidID: "example-bid-id",
-          Bidder: bidder,
-          GroupCode: "4onm",
-        }),
-      });
+        const apiUrl = `https://auctioneer2.azurewebsites.net/bid/4onm/`;
+        const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                AuctionID: auctionId,
+                Amount: bidAmount,
+                BidID: "example-bid-id",  // Ensure unique BidID generation if necessary
+                Bidder: bidder,
+                GroupCode: "4onm",
+            }),
+        });
 
-      if (!response.ok) {
-        throw new Error("Något gick fel när budet skapades");
-      }
+        if (!response.ok) {
+            throw new Error("Något gick fel när budet skapades");
+        }
 
-      console.log("Budet skapades framgångsrikt");
-      navigate(-1);
+        const bidResponse = await response.json(); // assuming API returns the created bid
+        setNewBid([...newBid, bidResponse]);  // Update newBid state with new bid
+
+        console.log("Budet skapades framgångsrikt");
+        navigate(-1); // or any other navigation as needed
     } catch (error) {
-      console.error("Fel uppstod vid skapande av bud:", error);
+        console.error("Fel uppstod vid skapande av bud:", error);
     }
-  };
+};
+
 
   return (
     <>
@@ -246,6 +250,9 @@ const App = () => {
             />
           }
         />
+
+<Route path="/details/:id" element={<Details />} />
+
         <Route path="/bid" element={<Bid createBid={createBid} />} />
 
         <Route

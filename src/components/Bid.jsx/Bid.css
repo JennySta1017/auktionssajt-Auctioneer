@@ -48,3 +48,13 @@
 button:hover {
   background-color: #0056b3;
 }
+.input-group {
+  position: relative;
+}
+
+.currency {
+  position: absolute;
+  right: 10px; /* Adjust as needed */
+  top: 50%;
+  transform: translateY(-50%);
+}

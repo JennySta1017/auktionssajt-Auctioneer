@@ -1,25 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from "react-bootstrap/Button";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './Bid.css';
 
 const Bid = ({ createBid }) => {
   const location = useLocation();
-  const auctionId = location.state.auctionId; // Access Auction ID passed from Details page
+  const navigate = useNavigate();
+  const auctionId = location.state.auctionId;
   const [bidAmount, setBidAmount] = useState('');
   const [bidder, setBidder] = useState('');
+  const [highestBid, setHighestBid] = useState(location.state.highestBid || 0); // Initialize with the highest bid from the location state
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    // If there's no highest bid in the location state, fetch it from the server
+    if (!location.state.highestBid) {
+      const fetchHighestBid = async () => {
+        try {
+          const response = await fetch(`https://auctioneer2.azurewebsites.net/highestBid/${auctionId}`);
+          if (!response.ok) {
+            throw new Error("Unable to fetch highest bid");
+          }
+          const data = await response.json();
+          setHighestBid(data.highestBid); // Set the highest bid from the server
+        } catch (error) {
+          console.error("Error fetching highest bid:", error);
+        }
+      };
+      fetchHighestBid();
+    }
+  }, [auctionId, location.state.highestBid]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    createBid(auctionId, bidAmount, bidder); // Use auctionId from state
-    setBidAmount('');
-    setBidder('');
+  
+    // Check if the bid amount is less than the highest bid amount
+    if (parseFloat(bidAmount) < parseFloat(highestBid)) {
+      alert("Du måste lägga ett bud som är högre än det högsta budet.");
+      return; // Exit the function if the bid amount is less than the highest bid amount
+    }
+  
+    await createBid(auctionId, bidAmount, bidder);
+    navigate(`/details/${auctionId}`);
   };
-
+  
   return (
     <div className="bid-container">
       <div className="bid-box">
         <h2>Lägg nytt bud</h2>
+        <div>
+          <p>Högsta budet: {highestBid} kr</p> {/* Display the highest bid */}
+        </div>
         <form onSubmit={handleSubmit}>
           <div className="input-container">
             <label htmlFor="bidAmount">Budsumma:</label>
@@ -47,4 +77,5 @@ const Bid = ({ createBid }) => {
     </div>
   );
 };
+
 export default Bid;
