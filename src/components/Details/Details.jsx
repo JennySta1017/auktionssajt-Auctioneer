@@ -14,12 +14,14 @@ const Details = ({
 }) => {
   const navigate = useNavigate();
 
-   if (!details) {
+  if (!details) {
     return <div>Detaljer för auktionen är inte tillgängliga.</div>;
   }
 
   const { Title, AuctionID, EndDate, StartingPrice, Description } = details;
   console.log(details);
+
+  
   
   const currentDate = new Date();
   const auctionEndDate = new Date(EndDate);
