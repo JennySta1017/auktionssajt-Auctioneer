@@ -7,39 +7,20 @@ import React, {useEffect, useState} from "react";
 
 const Details = ({
   oldBids,
-  details: initialDetails,
+  details,
   newBid,
   deleteAuction,
   setAuctions
 }) => {
   const navigate = useNavigate();
 
-  const [details, setDetails] = useState(initialDetails);
-
-  //Om details är undefined/null skall data hämtas från localStorage
-  useEffect(() => {
-    if (!initialDetails) {
-      const storedDetails = localStorage.getItem("auctionDetails");
-      if (storedDetails) {
-        setDetails(JSON.parse(storedDetails));
-      }
-    }
-  }, [initialDetails]);
-
-  useEffect(() => {
-    if (details) {
-      localStorage.setItem("auctionDetails", JSON.stringify(details));
-    }
-  }, [details]);
-  console.log(details);
-  
-  
-
-  if (!details) {
+   if (!details) {
     return <div>Detaljer för auktionen är inte tillgängliga.</div>;
   }
 
   const { Title, AuctionID, EndDate, StartingPrice, Description } = details;
+  console.log(details);
+  
   const currentDate = new Date();
   const auctionEndDate = new Date(EndDate);
   const isAuctionOver = auctionEndDate < currentDate;
