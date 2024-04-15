@@ -3,15 +3,34 @@ import { useNavigate } from "react-router-dom";
 import "./Details.css";
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from "react-bootstrap/Button";
+import React, {useEffect, useState} from "react";
 
 const Details = ({
   oldBids,
-  details,
+  details: initialDetails,
   newBid,
   deleteAuction,
   setAuctions
 }) => {
   const navigate = useNavigate();
+
+  const [details, setDetails] = useState(initialDetails);
+
+  useEffect(() => {
+    if (!initialDetails) {
+      const storedDetails = localStorage.getItem("auctionDetails");
+      if (storedDetails) {
+        setDetails(JSON.parse(storedDetails));
+      }
+    }
+  }, [initialDetails]);
+
+  useEffect(() => {
+    if (details) {
+      localStorage.setItem("auctionDetails", JSON.stringify(details));
+    }
+  }, [details]);
+  console.log(details);
 
   if (!details) {
     return <div>Detaljer för auktionen är inte tillgängliga.</div>;
