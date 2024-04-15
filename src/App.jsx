@@ -74,6 +74,14 @@ const App = () => {
     }
   };
 
+  //Spara details i localStorage
+   useEffect(() => {
+    const storedDetails = localStorage.getItem("details");
+    const parsedDetails = storedDetails ? JSON.parse(storedDetails) : null;
+
+    setDetails(parsedDetails);
+  }, []);
+ 
   // Fetch old bids
   useEffect(() => {
     const fetchOldBids = async (auctionId) => {
