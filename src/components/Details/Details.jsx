@@ -16,6 +16,7 @@ const Details = ({
 
   const [details, setDetails] = useState(initialDetails);
 
+  //Om details är undefined/null skall data hämtas från localStorage
   useEffect(() => {
     if (!initialDetails) {
       const storedDetails = localStorage.getItem("auctionDetails");
@@ -31,6 +32,8 @@ const Details = ({
     }
   }, [details]);
   console.log(details);
+  
+  
 
   if (!details) {
     return <div>Detaljer för auktionen är inte tillgängliga.</div>;
@@ -70,6 +73,7 @@ const Details = ({
             <ListGroup.Item>Beskrivning: {Description}</ListGroup.Item>
           </ListGroup>
         </div>
+        
 
         {!isAuctionOver && allBids.length > 0 && (
           <ListGroup>
