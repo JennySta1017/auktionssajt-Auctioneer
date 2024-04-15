@@ -32,6 +32,14 @@ const App = () => {
 
   const navigate = useNavigate();
 
+  //Spara details i localStorage
+  useEffect(() => {
+    const storedDetails = localStorage.getItem("details");
+    const parsedDetails = storedDetails ? JSON.parse(storedDetails) : null;
+
+    setDetails(parsedDetails);
+  }, []);
+
   // Fetch auctions
   useEffect(() => {
     const fetchAuctions = async () => {
@@ -74,13 +82,7 @@ const App = () => {
     }
   };
 
-  //Spara details i localStorage
-   useEffect(() => {
-    const storedDetails = localStorage.getItem("details");
-    const parsedDetails = storedDetails ? JSON.parse(storedDetails) : null;
-
-    setDetails(parsedDetails);
-  }, []);
+  
  
   // Fetch old bids
   useEffect(() => {
