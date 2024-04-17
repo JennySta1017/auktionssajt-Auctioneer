@@ -74,8 +74,8 @@ const Details = ({
         {isAuctionOver && (
           <ListGroup>
             <div className="auction-details">
-              <ListGroup.Item><h2>Högsta bud</h2></ListGroup.Item>
-              <ListGroup.Item>{highestBid} kr</ListGroup.Item>
+      <       ListGroup.Item><h2>Högsta bud</h2></ListGroup.Item>
+              <ListGroup.Item>{highestBid > 0 ? `${highestBid} kr` : "Inga bud lagda"}</ListGroup.Item>
             </div>
           </ListGroup>
         )}

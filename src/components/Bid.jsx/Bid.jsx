@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './Bid.css';
+import Button from 'react-bootstrap/Button'; 
 
 const Bid = ({ createBid }) => {
   const location = useLocation();
@@ -31,6 +32,7 @@ const Bid = ({ createBid }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
   
     // Check if the bid amount is less than or equal to the highest bid amount
     if (parseFloat(bidAmount) <= parseFloat(highestBid)) {
@@ -41,14 +43,28 @@ const Bid = ({ createBid }) => {
     await createBid(auctionId, bidAmount, bidder);
     navigate(`/details/${auctionId}`);
   };
-  
+  const handleBackClick = () => {
+    navigate(-1); // Go back to the previous page
+  };
   return (
+    <>
+    <Button className="m-1" variant="outline-primary" onClick={handleBackClick}>
+        {' <<'} Tillbaka
+      </Button>
     <div className="bid-container">
-      <div className="bid-box">
-        <h2>Lägg nytt bud</h2>
-        <div>
-          <p>Högsta budet: {highestBid} kr</p> {/* Display the highest bid */}
-        </div>
+    <div className="bid-box">
+      <h2>Lägg nytt bud</h2>
+      <div>
+        <p>
+          {highestBid > 0 ? (
+            <>
+              Högsta budet: <span className="bold-text">{highestBid} kr</span>
+            </>
+          ) : (
+            "Det finns inga bud än"
+          )}
+        </p>
+      </div>
         <form onSubmit={handleSubmit}>
           <div className="input-container">
             <label htmlFor="bidAmount">Budsumma:</label>
@@ -76,6 +92,7 @@ const Bid = ({ createBid }) => {
         </form>
       </div>
     </div>
+    </>
   );
 };
 

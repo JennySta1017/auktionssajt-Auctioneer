@@ -1,8 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./NewAuction.css";
-import Button from 'react-bootstrap/Button'; // Make sure to import the Button component if using Bootstrap
-
+import Button from 'react-bootstrap/Button'; 
 const NewAuction = ({
   newTitle,
   newDescription,
