@@ -18,7 +18,11 @@ const App = () => {
   const [newBid, setNewBid] = useState([]);
   // Search auctions
   const [inputValue, setInputValue] = useState("");
-  const [details, setDetails] = useState([]);
+  const [details, setDetails] = useState(() => {
+    // Hämta sparade detaljer från localStorage om de finns
+    const storedDetails = localStorage.getItem("details");
+    return storedDetails ? JSON.parse(storedDetails) : null;
+  });
   const [searchResults, setSearchResults] = useState([]);
   // Store auctions created on the Selling page
   const [createdAuctions, setCreatedAuctions] = useState([]);
@@ -32,13 +36,11 @@ const App = () => {
 
   const navigate = useNavigate();
 
-  //Spara details i localStorage
-  useEffect(() => {
-    const storedDetails = localStorage.getItem("details");
-    const parsedDetails = storedDetails ? JSON.parse(storedDetails) : null;
 
-    setDetails(parsedDetails);
-  }, []);
+  // Spara detaljerna i localStorage när de ändras
+useEffect(() => {
+  localStorage.setItem("details", JSON.stringify(details));
+}, [details]);
 
   // Fetch auctions
   useEffect(() => {
