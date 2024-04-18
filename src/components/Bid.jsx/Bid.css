@@ -1,5 +1,5 @@
 .bid-container {
-  margin: 10px auto;
+  margin: 10px auto 86px;
   display: flex;
   justify-content: center;
   align-items: flex-start; /* Ändrad från 'center' till 'flex-start' */
@@ -35,7 +35,7 @@
 }
 
 .bid-button {
-  width: 100%; 
+  width: 100%;
   padding: 10px;
   background-color: #007bff;
   color: #fff;
