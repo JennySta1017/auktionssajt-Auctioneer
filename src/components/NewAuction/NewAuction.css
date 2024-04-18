@@ -4,13 +4,13 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-input[type=number] {
+input[type="number"] {
   appearance: textfield;
   -moz-appearance: textfield;
 }
 
 .container {
-  margin-bottom: 20vh;
+  margin-bottom: 120px;
 }
 
 .create-auction-input {
@@ -24,7 +24,7 @@ input[type=number] {
 }
 
 .create-auction-btn {
-  background-color: #04AA6D;
+  background-color: #04aa6d;
   color: white;
   padding: 12px 20px;
   border: none;
@@ -36,4 +36,3 @@ input[type=number] {
 .create-auction-btn:hover {
   background-color: #45a049;
 }
-   
