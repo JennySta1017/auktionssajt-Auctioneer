@@ -2,98 +2,103 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './Bid.css';
 import Button from 'react-bootstrap/Button'; 
+import { NavLink } from "react-router-dom";
 
-const Bid = ({ createBid }) => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const auctionId = location.state.auctionId;
-  const [bidAmount, setBidAmount] = useState('');
-  const [bidder, setBidder] = useState('');
-  const [highestBid, setHighestBid] = useState(location.state.highestBid || 0); // Initialize with the highest bid from the location state
+const Bid = ({ handleSubmitBid }) => {
+  const location = useLocation(); 
+  const navigate = useNavigate(); 
+  const auctionId = location.state.auctionId; 
+  const [bidAmount, setBidAmount] = useState(''); 
+  const [bidder, setBidder] = useState(''); 
+  const [highestBid, setHighestBid] = useState(0); 
+  const [noBidsMessage, setNoBidsMessage] = useState(''); 
 
+  // useEffect körs vid montering och uppdateringar baserade på location.state
   useEffect(() => {
-    // If there's no highest bid in the location state, fetch it from the server
-    if (!location.state.highestBid) {
-      const fetchHighestBid = async () => {
-        try {
-          const response = await fetch(`https://auctioneer2.azurewebsites.net/highestBid/${auctionId}`);
-          if (!response.ok) {
-            throw new Error("Unable to fetch highest bid");
-          }
-          const data = await response.json();
-          setHighestBid(data.highestBid); // Set the highest bid from the server
-        } catch (error) {
-          console.error("Error fetching highest bid:", error);
-        }
-      };
-      fetchHighestBid();
+    if (location.state) {
+      // Ställ in högsta bud om det finns tillgängligt
+      if (location.state.highestBid) {
+        setHighestBid(location.state.highestBid);
+      }
+      
+      // Kontrollera om det inte finns några bud och om startpriset är större än 0
+      if (location.state.startingPrice > 0 && !location.state.hasBids) {
+        setNoBidsMessage(`Inga bud är lagda. Utgångspris är ${location.state.startingPrice} kr.`);
+      }
     }
-  }, [auctionId, location.state.highestBid]);
+  }, [location.state]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-  
-    // Check if the bid amount is less than or equal to the highest bid amount
-    if (parseFloat(bidAmount) <= parseFloat(highestBid)) {
-      alert("Du måste lägga ett bud som är högre än det högsta budet.");
-      return; // Exit the function if the bid amount is less than or equal to the highest bid amount
-    }
-  
-    await createBid(auctionId, bidAmount, bidder);
-    navigate(`/details/${auctionId}`);
+  const onSubmit = (e) => {
+    e.preventDefault(); // Förhindra att formuläret skickas automatiskt
+    handleSubmitBid(e, auctionId, bidAmount, bidder); // Skicka bud
   };
-  const handleBackClick = () => {
-    navigate(-1); // Go back to the previous page
-  };
+ 
   return (
     <>
-    <Button className="m-1" variant="outline-primary" onClick={handleBackClick}>
-        {' <<'} Tillbaka
+      <Button variant="outline-primary" onClick={() => navigate(-1)} className="top-space">
+        {' <<'} Tillbaka 
       </Button>
-    <div className="bid-container">
-    <div className="bid-box">
-      <h2>Lägg nytt bud</h2>
       <div>
-        <p>
-          {highestBid > 0 ? (
-            <>
-              Högsta budet: <span className="bold-text">{highestBid} kr</span>
-            </>
-          ) : (
-            "Det finns inga bud än"
+        <form className="bid" onSubmit={onSubmit}>
+          <h2 className="bid-title">Lägg nytt bud</h2>
+          
+          {highestBid > 0 && (
+            <p className="leading-bid">Ledande bud: <strong>{highestBid} kr</strong></p> // Visa högsta budet om det finns
           )}
-        </p>
-      </div>
-        <form onSubmit={handleSubmit}>
-          <div className="input-container">
-            <label htmlFor="bidAmount">Budsumma:</label>
-            <div className="bid-amount-input">
-              <input 
-                type="number" 
-                id="bidAmount" 
-                value={bidAmount} 
-                onChange={(e) => setBidAmount(e.target.value)} 
-                required 
+
+          {noBidsMessage && (
+            <div>
+              <p>Inga bud är lagda.</p> 
+              <p>Utgångspriset är <strong>{location.state.startingPrice} kr</strong>.</p> 
+            </div>
+          )}
+          <fieldset disabled>
+            <div className="input-container">
+              <label htmlFor="auctionId" className="form-label">
+                Auktion Id 
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="auctionId"
+                value={auctionId}
+                disabled
               />
             </div>
-          </div>
+          </fieldset>
+
           <div className="input-container">
-            <label htmlFor="bidder">Budgivare:</label>
-            <input 
-              type="text" 
-              id="bidder" 
-              value={bidder} 
-              onChange={(e) => setBidder(e.target.value)} 
-              required 
+            <label htmlFor="amount" className="form-label">
+              Belopp 
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="amount"
+              value={bidAmount}
+              onChange={(e) => setBidAmount(e.target.value)}
             />
           </div>
-          <button type="submit" className="bid-button">Lägg bud</button>
+
+          <div className="input-container">
+            <label htmlFor="bidder" className="form-label">
+              Budgivare 
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="bidder"
+              value={bidder}
+              onChange={(e) => setBidder(e.target.value)}
+            />
+          </div>
+          <button type="submit" className="btn btn-primary">
+            Lägg bud 
+          </button>
         </form>
       </div>
-    </div>
     </>
   );
 };
 
-export default Bid;
+export default Bid; 

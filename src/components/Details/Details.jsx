@@ -38,7 +38,14 @@ const Details = ({
   const highestBid = allBids.reduce((max, bid) => Math.max(max, bid.Amount || 0), 0);
 
   const handleBidPageNavigation = () => {
-    navigate('/bid', { state: { auctionId: AuctionID, highestBid: highestBid } });
+    navigate('/bid', {
+      state: {
+        auctionId: AuctionID,
+        highestBid: highestBid,
+        startingPrice: StartingPrice, // Pass the starting price
+        hasBids: allBids.length > 0 // Pass a flag indicating if there are bids
+      }
+    });
   };
 
   return (
@@ -57,14 +64,13 @@ const Details = ({
           </ListGroup>
         </div>
         
-
         {!isAuctionOver && allBids.length > 0 && (
           <ListGroup>
             <div className="auction-details">
               <ListGroup.Item><h2>Budhistorik</h2></ListGroup.Item>
               <ul className="bid-list">
-                {allBids.map((bid) => bid.Amount && (
-                  <li key={bid.BidID}>{bid.Amount} kr</li>
+                {allBids.map((bid, index) => bid.Amount && (
+                  <li key={bid.BidID || index}>{bid.Amount} kr</li>
                 ))}
               </ul>
             </div>

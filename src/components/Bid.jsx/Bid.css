@@ -1,24 +1,30 @@
-.bid-container {
-  margin: 10px auto 86px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start; /* Ändrad från 'center' till 'flex-start' */
-}
-
-.bid-box {
-  width: 300px;
+.bid {
+  margin: auto;
+  max-width: 400px;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #f9f9f9;
+  text-align: center; 
+  margin-top: 20px; 
 }
 
-.bid-box h2 {
+.bid-title {
   margin-bottom: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.leading-bid {
+  margin-bottom: 10px;
+}
+
+.leading-bid p {
+  padding-top: 10px;
+  padding-bottom: 5px;
 }
 
 .input-container {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .input-container label {
@@ -26,7 +32,8 @@
   font-weight: bold;
 }
 
-.input-container input {
+.input-container input[type="text"],
+.input-container input[type="number"] {
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
@@ -34,7 +41,7 @@
   box-sizing: border-box;
 }
 
-.bid-button {
+button {
   width: 100%;
   padding: 10px;
   background-color: #007bff;
@@ -47,23 +54,7 @@
 button:hover {
   background-color: #0056b3;
 }
-.bid-amount-input {
-  position: relative;
-}
 
-.bid-amount-input input {
-  padding-right: 20px; /* Lägg till lite extra utrymme till höger för valutasymbolen */
-}
-
-.bid-amount-input::after {
-  content: "kr";
-  position: absolute;
-  top: 50%;
-  right: 10px; /* Justera avståndet från höger sida */
-  transform: translateY(-50%);
-  color: #000; /* Färg på valutasymbolen */
-}
-
-.bold-text {
-  font-weight: bold;
+.top-space {
+  margin-top: 5px; 
 }

@@ -12,6 +12,9 @@ import NewAuction from "./components/NewAuction/NewAuction";
 import Contact from "./components/Contact/Contact";
 
 const App = () => {
+  const [newBidAmount, setNewBidAmount] = useState("");
+  const [newBidder, setNewBidder] = useState("");
+  const [highestBid, setHighestBid] = useState(0);
   // Fetch auctions
   const [auctions, setAuctions] = useState([]);
   const [oldBids, setOldBids] = useState([]);
@@ -184,37 +187,37 @@ useEffect(() => {
     navigate("/");
   };
 
-  // Funktion för att skapa nya bud
-  const createBid = async (auctionId, bidAmount, bidder) => {
-    try {
-        const apiUrl = `https://auctioneer2.azurewebsites.net/bid/4onm/`;
-        const response = await fetch(apiUrl, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                AuctionID: auctionId,
-                Amount: bidAmount,
-                BidID: "example-bid-id",  // Ensure unique BidID generation if necessary
-                Bidder: bidder,
-                GroupCode: "4onm",
-            }),
-        });
-
-        if (!response.ok) {
-            throw new Error("Något gick fel när budet skapades");
-        }
-
-        const bidResponse = await response.json(); // assuming API returns the created bid
-        setNewBid([...newBid, bidResponse]);  // Update newBid state with new bid
-
-        console.log("Budet skapades framgångsrikt");
-        navigate(-1); // or any other navigation as needed
-    } catch (error) {
-        console.error("Fel uppstod vid skapande av bud:", error);
+  
+  // Submit a new bid
+  const handleSubmitBid = async (e, auctionId, newBidAmount, newBidder) => {
+    e.preventDefault();
+    // Now highestBid is defined and can be used here
+    if (newBidAmount <= highestBid) {
+      alert("Det nya budet måste överstiga det nuvarande högsta budet");
+      return;
     }
-};
+    const myObj = {
+      AuctionID: auctionId,
+      Amount: newBidAmount,
+      Bidder: newBidder,
+    };
+    const apiUrl = "https://auctioneer2.azurewebsites.net/bid/4onm";
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(myObj),
+    });
+    if (!response.ok) {
+      alert("Något gick fel. Kom ihåg att budbeloppet måste vara högre än det ledande budet eller utgångspriset.");
+      return;
+    }
+    setNewBid([...newBid, myObj]);
+    setNewBidAmount("");
+    setNewBidder("");
+    navigate("/details");
+  };
 
 
   return (
@@ -263,10 +266,20 @@ useEffect(() => {
           }
         />
 
-<Route path="/details/:id" element={<Details />} />
+        <Route path="/details/:id" element={<Details />} />
 
-        <Route path="/bid" element={<Bid createBid={createBid} />} />
-
+        <Route  path="/bid"
+          element={
+            <Bid
+              handleSubmitBid={handleSubmitBid}
+              auctionId={details.AuctionID}
+              newBidAmount={newBidAmount}
+              setNewBidAmount={setNewBidAmount}
+              newBidder={newBidder}
+              setNewBidder={setNewBidder}
+            />
+          }
+/>
         <Route
           path="/newAuction"
           element={
