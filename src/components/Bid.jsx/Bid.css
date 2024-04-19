@@ -4,8 +4,9 @@
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  text-align: center; 
-  margin-top: 20px; 
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 90px;
 }
 
 .bid-title {
@@ -56,5 +57,5 @@ button:hover {
 }
 
 .top-space {
-  margin-top: 5px; 
+  margin-top: 5px;
 }
