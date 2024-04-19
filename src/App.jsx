@@ -39,12 +39,6 @@ const App = () => {
 
   const navigate = useNavigate();
 
-
-  // Spara detaljerna i localStorage när de ändras
-useEffect(() => {
-  localStorage.setItem("details", JSON.stringify(details));
-}, [details]);
-
   // Fetch auctions
   useEffect(() => {
     const fetchAuctions = async () => {
@@ -87,8 +81,6 @@ useEffect(() => {
     }
   };
 
-  
- 
   // Fetch old bids
   useEffect(() => {
     const fetchOldBids = async (auctionId) => {
@@ -187,7 +179,6 @@ useEffect(() => {
     navigate("/");
   };
 
-  
   // Submit a new bid
   const handleSubmitBid = async (e, auctionId, newBidAmount, newBidder) => {
     e.preventDefault();
@@ -210,7 +201,9 @@ useEffect(() => {
       body: JSON.stringify(myObj),
     });
     if (!response.ok) {
-      alert("Något gick fel. Kom ihåg att budbeloppet måste vara högre än det ledande budet eller utgångspriset.");
+      alert(
+        "Något gick fel. Kom ihåg att budbeloppet måste vara högre än det ledande budet eller utgångspriset."
+      );
       return;
     }
     setNewBid([...newBid, myObj]);
@@ -218,7 +211,6 @@ useEffect(() => {
     setNewBidder("");
     navigate("/details");
   };
-
 
   return (
     <>
@@ -261,25 +253,26 @@ useEffect(() => {
               details={details}
               newBid={newBid}
               deleteAuction={deleteAuction}
-              setAuctions={setAuctions}  
+              setAuctions={setAuctions}
             />
           }
         />
 
         <Route path="/details/:id" element={<Details />} />
 
-        <Route  path="/bid"
+        <Route
+          path="/bid"
           element={
             <Bid
               handleSubmitBid={handleSubmitBid}
-              auctionId={details.AuctionID}
+              auctionId={details?.AuctionID}
               newBidAmount={newBidAmount}
               setNewBidAmount={setNewBidAmount}
               newBidder={newBidder}
               setNewBidder={setNewBidder}
             />
           }
-/>
+        />
         <Route
           path="/newAuction"
           element={
